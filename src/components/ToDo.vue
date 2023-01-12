@@ -7,7 +7,10 @@ export default {
   name: 'ToDo',
   data() {
     return {
-      todoList: []
+      todoList: [],
+
+      newTodo: "",
+
     };
   },
   methods: {
@@ -15,6 +18,16 @@ export default {
     formSubmit(e) {
 
       e.preventDefault();
+      const params = { params: { 
+        'newTodo': this.newTodo
+      }}; 
+
+      axios.get(API_URL + "php-todolist/data.php", params)
+           .then(() => {
+
+             this.getAllData();
+             console.log(this.newTodo);
+           });
     },
     getAllData() {
 
@@ -39,12 +52,12 @@ export default {
 <template>
  <h1>to do List</h1>
  <ul>
-  <li v-for="list, index in todoList">{{ list.text }}</li>
+  <li v-for="list, index in todoList" :key="index">{{ list.text }}</li>
 
  </ul>
 
  <form @submit="formSubmit">
-  <input type="text">
+  <input type="text" v-model="newTodo">
   <input type="submit" value="sumbit">
  </form>
 </template>

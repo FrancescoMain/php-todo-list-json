@@ -1,17 +1,17 @@
 <script >
-import HelloWorld from './components/HelloWorld.vue'
+import ToDo from './components/ToDo.vue'
 
 export default {
 
 name: "App",
 components: {
-  HelloWorld,
+  ToDo,
 }
 }
 </script>
 
 <template>
-  <HelloWorld />
+  <ToDo />
 </template>
 
 <style >

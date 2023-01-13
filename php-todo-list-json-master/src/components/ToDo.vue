@@ -24,7 +24,8 @@ export default {
       }};
       
       axios.get(API_URL + "/php-todolist/api-new-todo.php",params)
-          .then(res=> {
+          .then(()=> {
+
             this.getAllData();
           });
 
@@ -41,18 +42,6 @@ export default {
       axios.get(API_URL + "/php-todolist/completed-toggle.php",params)
           .then(() => {
 
-        });
-    },
-    delet(index) {
-      
-      const params = {params: {
-        "index" : index,
-      }};
-      axios.get(API_URL + "/php-todolist/delet.php",params)
-          .then(res => {
-            console.log(res.data);
-            this.getAllData();
-            
         });
     },
 
@@ -87,7 +76,6 @@ export default {
       @click="done(list, index)"
     >
     {{ list.text }}
-    <button @click="delet(index)">X</button>
   </li>
 
  </ul>

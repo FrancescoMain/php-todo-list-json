@@ -24,13 +24,27 @@ export default {
       }};
       
       axios.get(API_URL + "/php-todolist/api-new-todo.php",params)
-          .then(res => {
-            console.log(res.data);
+          .then(()=> {
+
             this.getAllData();
           });
 
 
     },
+    done(list, index) {
+      
+      list.completed = list.completed? false : true;
+      const params = {params: {
+        "index" : index,
+        "text" :list.text,
+        'completed' : list.completed
+      }};
+      axios.get(API_URL + "/php-todolist/completed-toggle.php",params)
+          .then(() => {
+
+        });
+    },
+
     getAllData() {
 
       axios.get(API_URL + "/php-todolist/data.php")
@@ -54,7 +68,15 @@ export default {
 <template>
  <h1>to do List</h1>
  <ul>
-  <li v-for="list, index in todoList" :key="index" :class="list.completed? 'completed': ''">{{ list.text }}</li>
+  <li  v-for="list, index in todoList" 
+    :key="index" 
+    :class="list.completed
+      ? 'completed'
+      : ''"
+      @click="done(list, index)"
+    >
+    {{ list.text }}
+  </li>
 
  </ul>
 

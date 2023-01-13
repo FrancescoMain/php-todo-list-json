@@ -1,7 +1,7 @@
 <script >
 import axios from 'axios';
 
-const API_URL = "http://localhost:8000/";
+const API_URL = "http://localhost:8000";
   
 export default {
   name: 'ToDo',
@@ -18,20 +18,22 @@ export default {
     formSubmit(e) {
 
       e.preventDefault();
-      const params = { params: { 
-        'newTodo': this.newTodo
-      }}; 
+      
+      const params = {params: {
+        'text' : this.newTodo
+      }};
+      
+      axios.get(API_URL + "/php-todolist/api-new-todo.php",params)
+          .then(res => {
+            console.log(res.data);
+            this.getAllData();
+          });
 
-      axios.get(API_URL + "php-todolist/data.php", params)
-           .then(() => {
 
-             this.getAllData();
-             console.log(this.newTodo);
-           });
     },
     getAllData() {
 
-      axios.get(API_URL + "php-todolist/data.php")
+      axios.get(API_URL + "/php-todolist/data.php")
       .then(res => {
 
       const data = res.data;
@@ -57,7 +59,7 @@ export default {
  </ul>
 
  <form @submit="formSubmit">
-  <input type="text" v-model="newTodo">
+  <input type="text" name="newTodo" v-model="newTodo">
   <input type="submit" value="sumbit">
  </form>
 </template>

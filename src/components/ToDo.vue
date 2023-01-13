@@ -54,7 +54,7 @@ export default {
 <template>
  <h1>to do List</h1>
  <ul>
-  <li v-for="list, index in todoList" :key="index">{{ list.text }}</li>
+  <li v-for="list, index in todoList" :key="index" :class="list.completed? 'completed': ''">{{ list.text }}</li>
 
  </ul>
 
@@ -65,5 +65,7 @@ export default {
 </template>
 
 <style scoped>
-
+.completed {
+  text-decoration:line-through;
+}
 </style>

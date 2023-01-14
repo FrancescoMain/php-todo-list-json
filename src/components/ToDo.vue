@@ -25,7 +25,9 @@ export default {
       
       axios.get(API_URL + "/php-todolist/api-new-todo.php",params)
           .then(res=> {
-            this.getAllData();
+            this.getAllData(),
+            this.newTodo = "";
+
           });
 
 
@@ -49,10 +51,9 @@ export default {
         "index" : index,
       }};
       axios.get(API_URL + "/php-todolist/delet.php",params)
-          .then(res => {
-            console.log(res.data);
+          .then(() => {
+
             this.getAllData();
-            
         });
     },
 
@@ -79,17 +80,21 @@ export default {
 <template>
  <h1>to do List</h1>
  <ul>
-  <li  v-for="list, index in todoList" 
-    :key="index" 
+  <div v-for="list, index in todoList" 
+    :key="index" >
+    <li  
     :class="list.completed
       ? 'completed'
       : ''"
       @click="done(list, index)"
     >
     {{ list.text }}
-    <button @click="delet(index)">X</button>
-  </li>
 
+
+  </li>
+  <button @click="delet(index)">X</button>
+  </div>
+  
  </ul>
 
  <form @submit="formSubmit">
